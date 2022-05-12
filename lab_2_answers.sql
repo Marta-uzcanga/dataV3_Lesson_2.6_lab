@@ -41,8 +41,8 @@ having mean_duration > 120;
 -- 8 Rank films by length (filter out the rows that have nulls or 0s in length column). In your output, only select the columns title, length, and the rank.
 
 
-SELECT *, length, title,  rank() OVER (PARTITION BY length order by title) as 'rank'
+SELECT title, length, rank() OVER (PARTITION BY length, title order by length) as 'rank'
 FROM sakila.film
 WHERE (length IS NOT NULL) AND (length <> '  ')
-GROUP BY length, TITLE, 'rank';
+GROUP BY length;
 
